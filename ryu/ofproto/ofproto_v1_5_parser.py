@@ -59,6 +59,36 @@ def msg_parser(datapath, version, msg_type, msg_len, xid, buf):
     return parser(datapath, version, msg_type, msg_len, xid, buf)
 
 
+def disable_ext_334():
+    """
+    Disables features related to EXT-334.
+
+    Because OVS 2.9.0 does not yet support the OXS(EXT-334), in order to use
+    ``OFPMP_FLOW_STATS``, ``OFPMP_AGGREGATE_STATS`` and ``OFPT_FLOW_REMOVED``
+    messages, we need to use parsers for the OpenFlow 1.4.
+
+    After calling this function, ``OFPFlowDescStatsReply`` has the same
+    structure of ``ofproto_v1_4_parser.OFPFlowStatsReply``,
+    ``OFPAggregateStatsReply`` and ``OFPFlowRemoved`` have the same structures
+    of each corresponding parsers of ``ofproto_v1_4_parser``.
+    """
+    from ryu.ofproto import ofproto_v1_4_parser
+
+    # OFPMP_FLOW_DESC/OFPMP_FLOW_STATS
+    # Note: OFPMP_FLOW_STATS in OpenFlow 1.4 or earlier is renamed to
+    # OFPMP_FLOW_DESC in OpenFlow 1.5
+    OFPFlowDescStatsReply.cls_stats_body_cls = \
+        ofproto_v1_4_parser.OFPFlowStats
+
+    # OFPMP_AGGREGATE_STATS
+    OFPAggregateStatsReply.cls_stats_body_cls = \
+        ofproto_v1_4_parser.OFPAggregateStats
+
+    # OFPT_FLOW_REMOVED
+    _MSG_PARSERS[OFPFlowRemoved.cls_msg_type] = \
+        ofproto_v1_4_parser.OFPFlowRemoved.parser
+
+
 @_register_parser
 @_set_msg_type(ofproto.OFPT_HELLO)
 class OFPHello(MsgBase):
