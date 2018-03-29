@@ -31,6 +31,7 @@ from ryu import utils
 from ryu.ofproto.ofproto_parser import StringifyMixin, MsgBase, MsgInMsgBase
 from ryu.ofproto import ether
 from ryu.ofproto import nx_actions
+from ryu.ofproto import nx_message
 from ryu.ofproto import ofproto_parser
 from ryu.ofproto import ofproto_common
 from ryu.ofproto import ofproto_v1_5 as ofproto
@@ -6937,4 +6938,8 @@ class OFPBundleAddMsg(MsgInMsgBase):
 nx_actions.generate(
     'ryu.ofproto.ofproto_v1_5',
     'ryu.ofproto.ofproto_v1_5_parser'
+)
+
+nx_message.generate(
+    'ryu.ofproto.ofproto_v1_5_parser',
 )

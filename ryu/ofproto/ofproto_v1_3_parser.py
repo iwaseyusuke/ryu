@@ -54,6 +54,7 @@ from ryu import utils
 from ryu.ofproto.ofproto_parser import StringifyMixin, MsgBase
 from ryu.ofproto import ether
 from ryu.ofproto import nx_actions
+from ryu.ofproto import nx_message
 from ryu.ofproto import ofproto_parser
 from ryu.ofproto import ofproto_common
 from ryu.ofproto import ofproto_v1_3 as ofproto
@@ -6495,4 +6496,8 @@ class ONFBundleAddMsg(OFPExperimenter):
 nx_actions.generate(
     'ryu.ofproto.ofproto_v1_3',
     'ryu.ofproto.ofproto_v1_3_parser'
+)
+
+nx_message.generate(
+    'ryu.ofproto.ofproto_v1_3_parser',
 )

@@ -1644,6 +1644,29 @@ class NXTSetAsyncConfig(NiciraHeader):
 
 
 class NXTSetControllerId(NiciraHeader):
+    """
+    Set controller connection ID message
+
+    Each OpenFlow controller connection has a 16-bit identifier that is
+    initially 0. This message changes the connection's ID to the given ID.
+
+    Controller connection IDs need not be unique.
+
+    ================ ======================================================
+    Attribute        Description
+    ================ ======================================================
+    controller_id    16-bit identifier value for controller connection.
+    ================ ======================================================
+
+    Example::
+
+        def send_set_controller_id(self, datapath, controller_id):
+            parser = datapath.ofproto_parser
+
+            msg = parser.NXTSetControllerId(datapath, controller_id)
+            datapath.send_msg(msg)
+    """
+
     def __init__(self, datapath, controller_id):
         super(NXTSetControllerId, self).__init__(
             datapath, ofproto.NXT_SET_CONTROLLER_ID)

@@ -2,6 +2,13 @@
 Nicira Extension Structures
 ***************************
 
+Nicira Extended Messages Structures
+===================================
+
+.. py:currentmodule:: ryu.ofproto.ofproto_v1_3_parser
+
+.. autoclass:: NXTSetControllerId
+
 .. _nx_actions_structures:
 
 Nicira Extension Actions Structures
