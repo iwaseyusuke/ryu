@@ -30,6 +30,7 @@ from ryu.lib.packet import packet
 from ryu import utils
 from ryu.ofproto.ofproto_parser import StringifyMixin, MsgBase
 from ryu.ofproto import ether
+from ryu.ofproto import nx_actions
 from ryu.ofproto import ofproto_parser
 from ryu.ofproto import ofproto_v1_2 as ofproto
 
@@ -4669,3 +4670,9 @@ class MTMplsTc(OFPMatchField):
     def __init__(self, header, value, mask=None):
         super(MTMplsTc, self).__init__(header)
         self.value = value
+
+
+nx_actions.generate(
+    'ryu.ofproto.ofproto_v1_2',
+    'ryu.ofproto.ofproto_v1_2_parser'
+)
